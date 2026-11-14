@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Happy Birthday!</title>
+
+<script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.3/dist/confetti.browser.min.js"></script>
+
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    min-height: 100vh;
+    font-family: 'Segoe UI', sans-serif;
+    background: linear-gradient(135deg, #ff758c, #ff7eb3, #a18cd1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    overflow-x: hidden;
+    color: white;
+    padding: 20px;
+}
+
+.container {
+    width: 100%;
+    max-width: 430px;
+    padding: 35px 22px;
+    border-radius: 25px;
+    background: rgba(255,255,255,0.17);
+    backdrop-filter: blur(12px);
+    border: 1px solid rgba(255,255,255,0.3);
+    box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+    animation: appear 1.2s ease;
+}
+
+@keyframes appear {
+    from {
+        opacity: 0;
+        transform: translateY(40px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+h1 {
+    font-size: clamp(32px, 9vw, 43px);
+    margin-bottom: 15px;
+    text-shadow: 2px 3px 10px rgba(0,0,0,0.2);
+}
+
+.cake {
+    font-size: 90px;
+    margin: 20px 0;
+    animation: bounce 2s infinite;
+}
+
+@keyframes bounce {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-12px); }
+}
+
+.message {
+    font-size: 17px;
+    line-height: 1.7;
+    margin: 15px 0 25px;
+}
+
+button {
+    border: none;
+    padding: 15px 28px;
+    border-radius: 30px;
+    background: white;
+    color: #e84a80;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.15);
+    transition: 0.3s;
+}
+
+button:active {
+    transform: scale(0.94);
+}
+
+button:hover {
+    transform: scale(1.06);
+}
+
+#surprise {
+    display: none;
+    margin-top: 25px;
+    font-size: 20px;
+    line-height: 1.6;
+    animation: appear 1s ease;
+}
+
+.heart {
+    position: fixed;
+    bottom: -30px;
+    font-size: 22px;
+    animation: floatUp 7s linear infinite;
+    pointer-events: none;
+}
+
+@keyframes floatUp {
+    to {
+        transform: translateY(-110vh) rotate(360deg);
+        opacity: 0;
+    }
+}
+
+.footer {
+    margin-top: 25px;
+    font-size: 12px;
+    opacity: 0.8;
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <h1>🎉 Happy Birthday! 🎉</h1>
+
+    <div class="cake">🎂</div>
+
+    <h2>Dear Birthday Star! 💖</h2>
+
+    <p class="message">
+        May your special day be filled with happiness,
+        laughter, beautiful memories and endless smiles.
+        You deserve all the wonderful things in life!
+    </p>
+
+    <button onclick="showSurprise()">
+        🎁 Open Your Surprise
+    </button>
+
+    <div id="surprise">
+        💗 You are one of a kind! <br>
+        Keep smiling, keep shining! ✨ <br>
+        Wishing you the happiest birthday ever! 🥳
+    </div>
+
+    <div class="footer">
+        Made with ❤️ just for you
+    </div>
+
+</div>
+
+<script>
+
+// Confetti on page load
+function launchConfetti() {
+    confetti({
+        particleCount: 150,
+        spread: 100,
+        origin: { y: 0.6 }
+    });
+}
+
+window.onload = () => {
+    setTimeout(launchConfetti, 500);
+};
+
+// Surprise button
+function showSurprise() {
+    document.getElementById("surprise").style.display = "block";
+
+    confetti({
+        particleCount: 250,
+        spread: 140,
+        origin: { y: 0.6 }
+    });
+
+    setTimeout(() => {
+        confetti({
+            particleCount: 100,
+            angle: 60,
+            spread: 70,
+            origin: { x: 0 }
+        });
+
+        confetti({
+            particleCount: 100,
+            angle: 120,
+            spread: 70,
+            origin: { x: 1 }
+        });
+    }, 300);
+}
+
+// Floating hearts
+function createHeart() {
+    const heart = document.createElement("div");
+    heart.className = "heart";
+    heart.innerHTML = ["💖", "💕", "💗", "✨"][Math.floor(Math.random() * 4)];
+
+    heart.style.left = Math.random() * 100 + "vw";
+    heart.style.animationDuration = (4 + Math.random() * 4) + "s";
+
+    document.body.appendChild(heart);
+
+    setTimeout(() => heart.remove(), 8000);
+}
+
+setInterval(createHeart, 600);
+
+</script>
+
+</body>
+</html>
